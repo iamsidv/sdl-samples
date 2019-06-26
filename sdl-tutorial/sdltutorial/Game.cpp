@@ -60,13 +60,30 @@ bool Game::init(const char *windowname, int x, int y, int w, int h, bool fullscr
         printf("Couldn't find the resource id %s \n", "brickwall");
         return false;
     }
-    
-    m_go.load(0, 0, 256, 256, "green_lift");
-    m_player.load(0, 0, 256, 256, "green_lift");
+
+    init();
     
     return is_init;
 }
 
+void Game::init()
+{
+    m_go = new GameObject();
+    m_player = new Player();
+    m_enemy = new Enemy();
+    
+    m_go->load(0, 0, 256, 256, "green_lift");
+    m_player->load(0, 0, 256, 256, "green_lift");
+    m_enemy->load(0, 200, 128, 256, "green_lift");
+    
+    m_gameObjects.push_back(m_go);
+    m_gameObjects.push_back(m_player);
+    m_gameObjects.push_back(m_enemy);
+
+    
+    //    m_go.load(0, 0, 256, 256, "green_lift");
+    //    m_player.load(0, 0, 256, 256, "green_lift");
+}
 void Game::handlekeyevents(){
     SDL_Event s_event;
     if(SDL_PollEvent(&s_event)){
@@ -94,17 +111,34 @@ void Game::update(){
     /*s_sourceRect.x = r;
     s_sourceRect.y = c;*/
     
-    m_go.update();
-    m_player.update();
+//    m_go.update();
+//    m_player.update();
+    
+    for (std::vector<GameObject*>::size_type i=0; i!=m_gameObjects.size(); i++) {
+        m_gameObjects[i]->update();
+    }
 }
 
 void Game::render(){
     //Clear the screen
     SDL_RenderClear(s_renderer);
     
-    m_go.draw(s_renderer);
-    m_player.draw(s_renderer);
+//    commenting this because now we are using pointers
+//    m_go.draw(s_renderer);
+//    m_player.draw(s_renderer);
     
+    //Some T type thingy!!!
+    for (std::vector<GameObject*>::size_type i = 0; i!= m_gameObjects.size(); i++) {
+        m_gameObjects[i]->draw(s_renderer);
+    }
+    
+    //Using texturemanager now (as a stack object)
+    //    m_texuremanager.draw("green_lift", 0, 0, 256, 256, s_renderer);
+    //    m_texuremanager.drawFrame("green_lift", 150, 150, 128, 128, 1, currentFrame, s_renderer);
+    
+//    This is using a singleton example.
+//    STextureManager::Instance()->draw("green_lift", 0, 0, 256, 256, s_renderer);
+//    STextureManager::Instance()->drawFrame("green_lift", 150, 150, 128, 128, 1, currentFrame, s_renderer);
 //    SDL_Rect zz = STextureManager::Instance()->getTextureRect("brickwall");
 //    STextureManager::Instance()->draw("brickwall", 0, 300, zz.w, zz.h, s_renderer);
     
