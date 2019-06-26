@@ -11,6 +11,7 @@
 
 #include <SDL2/SDL.h>
 #include "TextureManager.h"
+#include "Player.h"
 
 class Game{
 public:
@@ -33,13 +34,12 @@ private :
     SDL_Window* s_window = NULL;
     SDL_Renderer* s_renderer = NULL;
     
-//    //Texture and rects
-//    SDL_Texture* s_texture = NULL;
-//    SDL_Rect s_sourceRect;
-//    SDL_Rect s_destinationRect;
-    
     int currentFrame;
-    //TextureManager m_texuremanager;
+    
+    // Added two objects in the gamescene
+    GameObject m_go;
+    Player m_player;
+    
 };
 
 #endif /* Game_h */

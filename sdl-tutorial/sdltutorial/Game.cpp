@@ -47,46 +47,8 @@ bool Game::init(const char *windowname, int x, int y, int w, int h, bool fullscr
     printf("Initialization Success : %d \n", is_init);
     m_running = is_init;
     
-    //This is not required now.
-    /*
-    //Create a surface for loading an image
-    SDL_Surface* tempSurface = SDL_LoadBMP("assets/pause.bmp");
-    //Loading from PNG
-//    SDL_Surface* tempSurface = IMG_Load("assets/green_lift_btn.png");
-
-    if(tempSurface==NULL) printf("Unable to find image\n");
-    else printf("pause.bmp found\n");
-    
-    //create a texture from surface
-    s_texture = SDL_CreateTextureFromSurface(s_renderer, tempSurface);
-    
-    if(s_texture==NULL) printf("Texture created from surface\n");
-    else printf("texture found\n");
-    
-    //Free or remove the surface
-    SDL_FreeSurface(tempSurface);
-    //Querying the texture will allow us to set the width and height of our source rectangle to the exact dimensions needed
-    SDL_QueryTexture(s_texture, NULL, NULL, &s_sourceRect.w, &s_sourceRect.h);
-    
-    //Getting 1/4th of the image's frame.
-    s_sourceRect.w /=2;
-    s_sourceRect.h /=2;
-    printf("Rect width is %d and height is %d \n",s_sourceRect.w, s_sourceRect.h);
-    //
-    s_sourceRect.x = 0;
-    s_sourceRect.y = 0;
-    
-    //Placement of the txture in the screen
-    s_destinationRect.x = 30;
-    s_destinationRect.y = 40;
-    
-    s_destinationRect.w = s_sourceRect.w;
-    s_destinationRect.h = s_sourceRect.h;
-    
-    */
-    
     //Using texture manager as a stack object i.e, without a pointer.
-//    m_texuremanager.load("assets/green_lift_btn.png", "green_lift", s_renderer);
+    //m_texuremanager.load("assets/green_lift_btn.png", "green_lift", s_renderer);
     
     //Using singleton reference of the texture manager now.
     if(!STextureManager::Instance()->load("assets/green_lift_btn.png", "green_lift", s_renderer)){
@@ -98,6 +60,9 @@ bool Game::init(const char *windowname, int x, int y, int w, int h, bool fullscr
         printf("Couldn't find the resource id %s \n", "brickwall");
         return false;
     }
+    
+    m_go.load(0, 0, 256, 256, "green_lift");
+    m_player.load(0, 0, 256, 256, "green_lift");
     
     return is_init;
 }
@@ -122,35 +87,26 @@ void Game::handlekeyevents(){
 }
 
 void Game::update(){
-    currentFrame = int((SDL_GetTicks()/1000)% 2);
+    //currentFrame = int((SDL_GetTicks()/1000)% 2);
 //    int r = (currentFrame%2) * 64;
 //    int c = (currentFrame/2) * 64;
     
     /*s_sourceRect.x = r;
     s_sourceRect.y = c;*/
+    
+    m_go.update();
+    m_player.update();
 }
 
 void Game::render(){
     //Clear the screen
     SDL_RenderClear(s_renderer);
     
-    /*
-    //For displaying the texture
-    SDL_RenderCopy(s_renderer, s_texture, &s_sourceRect, &s_destinationRect);
-    //For enabling the texture to get flipped and display it on the screen.
-    //SDL_RenderCopyEx(s_renderer, s_texture, &s_sourceRect, &s_destinationRect, 0, 0, SDL_FLIP_HORIZONTAL);
-    */
+    m_go.draw(s_renderer);
+    m_player.draw(s_renderer);
     
-    //Using texturemanager now (as a stack object)
-//    m_texuremanager.draw("green_lift", 0, 0, 256, 256, s_renderer);
-//    m_texuremanager.drawFrame("green_lift", 150, 150, 128, 128, 1, currentFrame, s_renderer);
-    
-    //This is using a singleton example.
-    STextureManager::Instance()->draw("green_lift", 0, 0, 256, 256, s_renderer);
-    STextureManager::Instance()->drawFrame("green_lift", 150, 150, 128, 128, 1, currentFrame, s_renderer);
-    
-    SDL_Rect zz = STextureManager::Instance()->getTextureRect("brickwall");
-    STextureManager::Instance()->draw("brickwall", 0, 300, zz.w, zz.h, s_renderer);
+//    SDL_Rect zz = STextureManager::Instance()->getTextureRect("brickwall");
+//    STextureManager::Instance()->draw("brickwall", 0, 300, zz.w, zz.h, s_renderer);
     
     //Render it
     SDL_RenderPresent(s_renderer);

@@ -47,7 +47,6 @@ int main(int argc, const char * argv[]){
     SDL_Quit();
     */
     
-    
     g_game = new Game();
     
     g_game->init(win_name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, false);
@@ -56,6 +55,8 @@ int main(int argc, const char * argv[]){
         g_game->handlekeyevents();
         g_game->update();
         g_game->render();
+        
+        SDL_Delay(10);
     }
     
     g_game->close();
