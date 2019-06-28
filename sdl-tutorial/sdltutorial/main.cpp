@@ -47,10 +47,10 @@ int main(int argc, const char * argv[]){
     SDL_Quit();
     */
     
+    //The below implementation was for Game when it was not a singleton.
+    /*
     g_game = new Game();
-    
     g_game->init(win_name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, false);
-    
     while(g_game->running()){
         g_game->handlekeyevents();
         g_game->update();
@@ -58,13 +58,22 @@ int main(int argc, const char * argv[]){
         
         SDL_Delay(10);
     }
-    
     g_game->close();
-    
     //Delete Game class
     delete g_game;
     g_game = nullptr;
-   
+    */
+    
+    //Using a singleton model
+    TheGame::Instance()->init(win_name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, false);
+    while (TheGame::Instance()-> running()) {
+        TheGame::Instance()->handlekeyevents();
+        TheGame::Instance()->update();
+        TheGame::Instance()->render();
+        //Give a delay of 10ms
+        SDL_Delay(10);
+    }
+    TheGame::Instance()->close();
     
     return 0;
 }

@@ -11,18 +11,21 @@
 
 #include <SDL2/SDL.h>
 #include <vector>
-#include "TextureManager.h"
 #include "GameObject.h"
-#include "Player.h"
-#include "Enemy.h"
 
 class Game{
 public:
-    Game(){}
+//    Game(){}
     ~Game(){}
 
-    void init();
+    static Game* Instance(){
+        if(s_pInstance==NULL){
+            s_pInstance = new Game();
+        }
+        return s_pInstance;
+    }
     
+    void init();
     bool init(const char* windowname, int x, int y, int w, int h, bool fullscreen);
     void render();
     void update();
@@ -30,8 +33,12 @@ public:
     void close();
     
     bool running() {return m_running;}
+    SDL_Renderer* getRenderer() const { return s_renderer; }
     
 private :
+    //Making this private because of a static instance.
+    Game(){}
+    
     bool m_running = false;
     
     SDL_Window* s_window = NULL;
@@ -39,12 +46,16 @@ private :
     
     int currentFrame;
     
-    // Added two objects in the gamescene
-    GameObject* m_go;
+    // This is not necessary
+    /*GameObject* m_go;
     GameObject* m_player;
-    GameObject* m_enemy;
+    GameObject* m_enemy;*/
     
     std::vector<GameObject*> m_gameObjects;
+    //Static reference
+    static Game* s_pInstance;
 };
+
+typedef Game TheGame;
 
 #endif /* Game_h */

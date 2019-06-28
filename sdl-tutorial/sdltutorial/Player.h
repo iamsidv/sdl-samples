@@ -9,17 +9,21 @@
 #ifndef Player_h
 #define Player_h
 
-#include <iostream>
-#include "GameObject.h"
+#include <stdio.h>
+#include "SDLGameObject.h"
 
-class Player : public GameObject
+class Player : public SDLGameObject
 {
 public:
-    void load(int x, int y, int width, int height, std::string pTextureID);
-    void draw(SDL_Renderer* pRenderer);
-    void update();
-    void clean();
-    void printPosition();
+//    void load(int x, int y, int width, int height, std::string pTextureID);
+//    void draw(SDL_Renderer* pRenderer);
+//    void update();
+//    void clean();
+    
+    Player(const LoaderParams* pParams);
+    virtual void draw();
+    virtual void update();
+    virtual void clean();
 };
 
 

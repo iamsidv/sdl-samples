@@ -8,18 +8,17 @@
 
 #include "Enemy.h"
 
+Enemy::Enemy(const LoaderParams* pParams):SDLGameObject(pParams){
+    
+}
 
 void Enemy::update(){
     m_x+=1;
     m_currentFrame = int((SDL_GetTicks()/1000)% 2);
 }
 
-void Enemy::load(int x, int y, int width, int height, std::string pTextureID){
-    GameObject::load(x, y, width, height, pTextureID);
-}
-
-void Enemy::draw(SDL_Renderer *pRenderer){
-    GameObject::draw(pRenderer);
+void Enemy::draw(){
+    SDLGameObject::draw();
 }
 
 void Enemy::clean(){
