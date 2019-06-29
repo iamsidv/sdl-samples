@@ -9,7 +9,7 @@
 #ifndef Game_h
 #define Game_h
 
-#include <SDL2/SDL.h>
+#include "SDLHeader.h"
 #include <vector>
 #include "GameObject.h"
 

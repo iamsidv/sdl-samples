@@ -6,8 +6,8 @@
 //  Copyright © 2019 Siddharth. All rights reserved.
 //
 
-#include <SDL2_image/SDL_image.h>
-#include <SDL2/SDL.h>
+#include "SDLImageHeader.h"
+#include "SDLHeader.h"
 #include <map>
 
 #include "TextureManager.h"

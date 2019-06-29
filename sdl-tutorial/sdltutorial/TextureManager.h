@@ -13,7 +13,7 @@
 #include <iostream>
 #include <map>
 
-#include <SDL2/SDL.h>
+#include "SDLHeader.h"
 
 class TextureManager{
   

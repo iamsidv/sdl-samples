@@ -5,15 +5,15 @@
 //  Created by Siddharth on 04/06/19.
 //  Copyright © 2019 Siddharth. All rights reserved.
 //
-#include <SDL2/SDL.h>
-#include <stdio.h>
-
+//#include "SDLHeader.h"
+//#include <stdio.h>
+//
 //const int WINDOW_WIDTH = 640;
 //const int WINDOW_HEIGHT = 480;
 //const char* win_name = "SDL Tutorial Test";
 //
-//int mainzz(int argc, const char * argv[]){
-//    
+//int main(int argc, char * argv[]){
+//	printf("Entering the application");
 //    SDL_Window* s_window = NULL;
 //    SDL_Renderer* s_renderer = NULL;
 //    
@@ -39,6 +39,6 @@
 //    }
 //    //QUIT SDL
 //    SDL_Quit();
-//    
+//	printf("Quitting the application");
 //    return 0;
 //}

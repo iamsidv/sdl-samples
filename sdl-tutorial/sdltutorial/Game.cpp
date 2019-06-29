@@ -7,7 +7,7 @@
 //
 
 #include <stdio.h>
-#include <SDL2_image/SDL_image.h>
+#include "SDLImageHeader.h"
 
 #include "Game.h"
 #include "TextureManager.h"
@@ -43,7 +43,7 @@ bool Game::init(const char *windowname, int x, int y, int w, int h, bool fullscr
             }else{
                 printf("Renderer has been successful \n");
                 //Set a color to the renderer.
-                SDL_SetRenderDrawColor(s_renderer, 0x00, 0xff, 0xab, 0xff);
+                SDL_SetRenderDrawColor(s_renderer, 0xff, 0xff, 0xab, 0xff);
                 printf("Drawing the color on screen \n");
                 is_init =  true;
             }

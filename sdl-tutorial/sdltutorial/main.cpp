@@ -8,7 +8,6 @@
 
 //#include <SDL2/SDL.h>
 #include <stdio.h>
-
 #include "Game.h"
 
 const int WINDOW_WIDTH = 640;
@@ -17,7 +16,7 @@ const char* win_name = "SDL Tutorial Test";
 
 Game* g_game = NULL;
 
-int main(int argc, const char * argv[]){
+int main(int argc, char * argv[]){
     
     /*
     SDL_Window* s_window = NULL;
